@@ -50,12 +50,18 @@ def main():
         ship.update(dt)
         
         screen.fill('black')
-        # ship.draw(screen)
+
         for obj in drawable:
             obj.draw(screen)
-        # ship.update(dt)
+       
         for obj in updatable:
             obj.update(dt)
+            
+        for obj in asteroids:
+            if obj.collision_detection(ship):
+                print('Game Over!')
+                return
+                
         pygame.display.flip()
         
         # limit framerate to 60 fps
