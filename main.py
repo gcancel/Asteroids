@@ -13,9 +13,21 @@ def main():
     fps = pygame.time.Clock()
     dt = 0
     
+        # groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    
+    # adding player object to group
+    Player.containers = (updatable, drawable)
+    
     player_pos_x = SCREEN_WIDTH / 2
     player_pos_y = SCREEN_HEIGHT /2
     ship = Player(player_pos_x, player_pos_y)
+    
+
+    
+    
+
     
     
     while True:
@@ -25,9 +37,16 @@ def main():
                 pygame.quit();sys.exit()
                 return
             
-        # draw ship on screen        
+        # draw ship on screen
+        ship.update(dt)
+        
         screen.fill('black')
-        ship.draw(screen)
+        # ship.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
+        # ship.update(dt)
+        for obj in updatable:
+            obj.update(dt)
         pygame.display.flip()
         
         # limit framerate to 60 fps
